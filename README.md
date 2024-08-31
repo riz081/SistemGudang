@@ -39,3 +39,9 @@ Setelah dipublikasikan, Anda akan menerima link ke dokumentasi API Anda.
 7. Jalankan serve
     php artisan serve
 
+RUN DOCKER
+    docker compose up -d db
+    docker compose ps -a 
+    docker exec -it db psql -U postgres
+    docker compose up --build laravelapp
+
