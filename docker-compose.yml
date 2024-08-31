@@ -1,27 +1,30 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  laravelapp:
+    container_name: sistem_gudang
+    image: qika219/sistem_gudang:1.0.1
+    build: .
     ports:
-      - "8000:80"
+      - "8080:8080"
+    env_file:
+      - .env
     depends_on:
       - db
-    environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_DATABASE=sistem_gudang
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=123456
 
   db:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: sistem_gudang
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
+    container_name: db
+    image: postgres:12
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: sistem_gudang
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
+
+    
